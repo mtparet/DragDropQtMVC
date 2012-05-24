@@ -3,6 +3,8 @@
 #include "imageinsequence.h"
 #include "imageseqmodel.h"
 #include "imagereceptordelegate.h"
+#include "QDropEvent"
+#include "iostream"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -39,10 +41,28 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->listView->setDragEnabled(true);
     ui->listView->setAcceptDrops(true);
     ui->listView->setDropIndicatorShown(true);
-    ui->listView->setDragDropMode(QAbstractItemView::DragDrop);
-    ui->listView->viewport()->setAcceptDrops(true);
+
+    QList<ImageInSequence> *listSeq2 = new QList<ImageInSequence>();
+
+    ImageInSequence one = new ImageInSequence();
+    listSeq2->push_front(one);
+
+    ImageSeqModel *seqModel2 = new ImageSeqModel(this,listSeq2);
+
+    ImageReceptorDelegate *delegate2 = new ImageReceptorDelegate();
+
+    //Set data and item delegate to the listView
+    ui->listView_2->setModel(seqModel2);
+    ui->listView_2->setItemDelegate(delegate2);
+
+    //Set drag an drop to the second listview
+    ui->listView_2->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->listView_2->setDragEnabled(true);
+    ui->listView_2->setAcceptDrops(true);
+    ui->listView_2->setDropIndicatorShown(true);
 
 }
+
 
 MainWindow::~MainWindow()
 {

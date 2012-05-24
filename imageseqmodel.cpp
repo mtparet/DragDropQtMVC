@@ -107,9 +107,14 @@ QMimeData * ImageSeqModel::mimeData ( const QModelIndexList & indexes ) const{
 
 
 bool ImageSeqModel::setData ( const QModelIndex & index, const QVariant & value, int role  ){
-    if (!index.isValid() || index.row() < 0 )
+    if (!index.isValid() )
     {
         return false;
+    }
+    int row = index.row();
+
+    if(row < 0){
+            return false;
     }
     ImageInSequence is;
     is.fromVariant(value.toMap());
@@ -117,13 +122,21 @@ bool ImageSeqModel::setData ( const QModelIndex & index, const QVariant & value,
     //Si l'objet n'est pas contenu on l'insert sinon on le déplace
     if(li.contains(is)){
         li.removeOne(is);
-        li.insert(index.row(),is);
+        li.insert(row,is);
     }else{
-       li.insert(index.row(),is);
+       li.insert(row,is);
     }
 
     emit dataChanged(index,index);
     return true;
+}
+
+bool ImageSeqModel::removeRow(int row, const QModelIndex &parent){
+    if(parent.column() > 0 || parent.row() > li.count() || parent.row() < 0){
+        return false;
+    }
+
+    li.removeAt(parent.row());
 }
 
 
