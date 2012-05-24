@@ -114,10 +114,14 @@ bool ImageSeqModel::setData ( const QModelIndex & index, const QVariant & value,
     ImageInSequence is;
     is.fromVariant(value.toMap());
 
-    //Si l'image provient de la liste même, faire un mouv sur li
+    //Si l'objet n'est pas contenu on l'insert sinon on le déplace
+    if(li.contains(is)){
+        li.removeOne(is);
+        li.insert(index.row(),is);
+    }else{
+       li.insert(index.row(),is);
+    }
 
-    //sinon insérer l'image dans la liste
-    li.insert(index.row(),is);
     emit dataChanged(index,index);
     return true;
 }

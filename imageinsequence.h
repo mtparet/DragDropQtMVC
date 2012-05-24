@@ -14,6 +14,8 @@ class ImageInSequence
 
     bool fromVariant(QVariantMap variantMap);
 
+    bool operator == (const ImageInSequence & is);
+
 };
 
 

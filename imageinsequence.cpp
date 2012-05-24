@@ -20,3 +20,11 @@ bool ImageInSequence::fromVariant(QVariantMap variantMap){
     return true;
 }
 
+bool ImageInSequence::operator == (const ImageInSequence & is){
+    if(is.image_file == this->image_file){
+        return true;
+    }else{
+        return false;
+    }
+}
+
