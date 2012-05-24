@@ -16,7 +16,7 @@ public:
     QStringList mimeTypes() const;
     QMimeData * mimeData ( const QModelIndexList & indexes ) const;
     bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );
-    bool removeRow(int row, const QModelIndex &parent);
+    bool removeRows(int row, int count, const QModelIndex &parent);
     Qt::DropActions supportedDragActions() const;
 
 protected:

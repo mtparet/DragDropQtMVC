@@ -2,6 +2,7 @@
 #include "imageinsequence.h"
 #include "QMimeData"
 #include "QStringList"
+#include "iostream"
 
 ImageSeqModel::ImageSeqModel(QObject *parent, QList<ImageInSequence> *li) :
     QAbstractListModel(parent)
@@ -67,17 +68,12 @@ Qt::DropActions ImageSeqModel::supportedDragActions() const
       else
           beginRow = rowCount(QModelIndex());
 
-     // QString text = data->text();
-     // ImageInSequence is;
-     // is.image_file = text;
-
       QByteArray encodedData = data->data("application/x-myowncustomdata");
       QDataStream stream(&encodedData, QIODevice::ReadOnly);
 
       QVariant  isVariant;
         stream >> isVariant;
 
-      insertRows(beginRow, 1, QModelIndex());
 
       QModelIndex idx = index(beginRow, 0, QModelIndex());
       setData(idx, isVariant);
@@ -131,12 +127,19 @@ bool ImageSeqModel::setData ( const QModelIndex & index, const QVariant & value,
     return true;
 }
 
-bool ImageSeqModel::removeRow(int row, const QModelIndex &parent){
-    if(parent.column() > 0 || parent.row() > li.count() || parent.row() < 0){
+bool ImageSeqModel::removeRows(int row, int count, const QModelIndex &parent){
+    if(row > li.count() || row < 0){
         return false;
     }
 
-    li.removeAt(parent.row());
+    li.removeAt(row);
+
+    QModelIndex startIndex = index(0,0);
+   QModelIndex endIndex =  index(li.count(),0);
+
+    emit dataChanged(startIndex,endIndex);
+
+    return true;
 }
 
 

@@ -84,9 +84,12 @@ void MyBaseListView::performDrag()
 void MyBaseListView::dragLeaveEvent(QDragLeaveEvent *e){
     std::cout << "leave event" << std::endl;
     if(e->isAccepted()){
+        std::cout << "leave accepted event" << std::endl;
+
         QModelIndex indModel = indexAt(startPos);
-        std::cout << indModel.row() << indModel.column() << std::endl;
-        this->model()->removeRow(1,indModel);
+        bool test = this->model()->removeRow(indModel.row());
+        std::cout << test << std::endl;
+
     }
 }
 

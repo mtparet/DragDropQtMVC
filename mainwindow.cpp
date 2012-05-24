@@ -44,9 +44,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QList<ImageInSequence> *listSeq2 = new QList<ImageInSequence>();
 
-    ImageInSequence one = new ImageInSequence();
-    listSeq2->push_front(one);
-
     ImageSeqModel *seqModel2 = new ImageSeqModel(this,listSeq2);
 
     ImageReceptorDelegate *delegate2 = new ImageReceptorDelegate();
