@@ -15,3 +15,5 @@ SOURCES += \
 
 FORMS += \
     mainwindow.ui
+
+QT += widgets

@@ -2,6 +2,8 @@
 #include <QDropEvent>
 #include <QApplication>
 #include <iostream>
+#include <QMimeData>
+#include <QDrag>
 #include "imageinsequence.h"
 
 MyBaseListView::MyBaseListView(QWidget *parent) :
